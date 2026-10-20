@@ -4,6 +4,7 @@ from cryptography.hazmat.primitives import padding, hashes      # fournit les ou
 from cryptography.hazmat.primitives import hmac as crypto_hmac      # permet de générer un HMAC en SHA-256, c'est un peu le moteur de calcul
 import hmac     # nécessaire pour la fonction hmac.compare_digest(), pas compris dans le module 'cryptography' (pour ne pas utiliser hmac == hmac reçu)
 
+
 def aes_cbc_encrypt(text: bytes, aes_key: bytes) -> tuple[bytes, bytes]:
 
     """
@@ -28,3 +29,19 @@ def aes_cbc_encrypt(text: bytes, aes_key: bytes) -> tuple[bytes, bytes]:
 
     return iv, ciphertext       # retourne dans le tuple : 1. le IV calculé et 2. le texte chiffré
 
+
+def aes_cbc_decrypt(iv: bytes, ciphertext: bytes, aes_key: bytes) -> bytes:
+
+    """
+    Déchiffre un texte chiffré en AES-256-CBC (via aes_cbc_encrypt()), retire le padding et retourne le plaintext en octet.
+    """
+
+    cipher = Cipher(algorithms.AES(aes_key), modes.CBC(iv))     # comme pour encrypt, on définit la fiche technique exacte de ce qu'on utilise : AES avec aes_key, mode CBC avec l'IV...
+    decryptor = cipher.decryptor()      # ici pour faire l'inverse, on utilise decryptor au lieu d'encryptor 
+    padded_data = decryptor.update(ciphertext) + decryptor.finalize()       # dans le flux, on update chaque bloc de 16bytes chiffré avec decryptor pour déchiffrer (1bloc par 1 jusqu'au finalize quand y'en a plus)
+
+
+    unpadder = padding.PKCS7(128).unpadder()    # une fois tout déchiffré, on va définir le padding qui avait été utilisé pour l'encryption
+    plaintext = unpadder.update(padded_data) + unpadder.finalize()      # ensuite on retire le padding qui avait été ajouté afin de récupérer juste le texte déchiffré
+
+    return plaintext
