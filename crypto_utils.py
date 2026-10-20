@@ -45,3 +45,27 @@ def aes_cbc_decrypt(iv: bytes, ciphertext: bytes, aes_key: bytes) -> bytes:
     plaintext = unpadder.update(padded_data) + unpadder.finalize()      # ensuite on retire le padding qui avait été ajouté afin de récupérer juste le texte déchiffré
 
     return plaintext
+
+
+def compute_hmac(hmac_key: bytes, data: bytes) -> bytes:
+
+    """
+    Calcule l'empreinte HMAC-SHA256 sur les données fournies (data).
+    Retourne une empreinte SHA-256 de 32 octets calculés sur l'ensemble du texte chiffré reçu + l'IV qui est envoyé en clair.
+    """
+
+    h = crypto_hmac.HMAC(hmac_key, hashes.SHA256())     # On définit la fiche technique génère un hash SHA-256 à partir de la clé HMAC qu'on lui a fournit
+    h.update(data)      # On donne les données à protéger, ici data qui contiendra IV + text chiffré (sur l'ensemble du texte final)
+    return h.finalize()     # Une fois tous les update(data) finis, on renvoie l'empreinte SHA256
+
+
+def verify_hmac(hmac_key: bytes, data: bytes, mac: bytes) -> bool:
+
+    """
+    Vérifie l'authenticité des données en comparant le HMAC. On va récupérer le HMAC envoyé 'mac'
+    et recalculer le HMAC attendu avec 'expected_mac ='.
+    On le compare bien avec 'compare_digest' et pas un simple '=='
+    """
+
+    expected_mac = compute_hmac(hmac_key, data)      # recalcule de l'empreinte des blocs à partir de la clé HMAC (qui est secrète)
+    return hmac.compare_digest(expected_mac, mac)       # OBLIGATOIRE : protection contre les attaques on l'on devine le hmac en time-based (deviner les carac. un par un)
