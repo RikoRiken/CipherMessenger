@@ -1,6 +1,6 @@
 import os   # ici, nécessaire pour générer des octets aléatoires avec os.urandom() => principalement pour faire un IV
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes     # cipher c'est le moteur de calcul, algorithms contient AES, modes contient CBC
-from cryptography.hazmat.primitives import padding, hashes      # fournit les outils de bourrage (padding PKCS#7) et les fonctions de hachage (hashes.SHA256 pour le HMAC)
+from cryptography.hazmat.primitives import padding, hashes      # fournit les outils de padding (padding PKCS#7) et les fonctions de hachage (hashes.SHA256 pour le HMAC)
 from cryptography.hazmat.primitives import hmac as crypto_hmac      # permet de générer un HMAC en SHA-256, c'est un peu le moteur de calcul
 import hmac     # nécessaire pour la fonction hmac.compare_digest(), pas compris dans le module 'cryptography' (pour ne pas utiliser hmac == hmac reçu)
 
