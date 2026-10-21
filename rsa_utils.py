@@ -53,3 +53,27 @@ def rsa_dechiffrer_cle(cles_chiffrees: bytes, rsa_private_key) -> bytes:
         )
     )
     return cles_dechiffrees
+
+
+# ===> A PARTIR D'ICI, FONCTIONS POUR MESSAGERIE VIA LINUX TCP SOCKET EN LOCAL <=== 
+
+from cryptography.hazmat.primitives import serialization
+
+def exporter_cle_publique_pem(public_key):
+
+    """ on convertit l'objet 'public_key' qu'on a généré avec 'generer_paire_rsa'
+    en octets (TCP n'accepte que des octets) pour la convertir en format .pem 
+    et l'envoyer plus facilement sans erreurs.
+    """
+
+    return public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,    # on sérialise (obligatoire) et encode en base64 pour le fichier .pem
+        format=serialization.PublicFormat.SubjectPublicKeyInfo     # on décrit le bon format pour la clé publique, ici la norme ASN1
+    )
+
+
+def charger_cle_publique_pem(pem_bytes: bytes):
+
+    """Reconstitue un objet clé publique RSA depuis des octets PEM."""
+
+    return serialization.load_pem_public_key(pem_bytes)    # fonction de lib cryptogaphy qui permet de recréer le fichier pem depuis les octets reçu en TCP
