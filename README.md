@@ -61,8 +61,6 @@ pip install -r requirements.txt
 python3 enzo.py
 ```
 
-</br>
-
 2. **TERMINAL N°2 | Enrik (Client)**
 
 ```
@@ -73,6 +71,10 @@ python3 enrik.py
 > Au lancement de chaque script (Serveur ou Client), un input permet de sélectionner le mode **PEDAGOGIQUE** en répondant `Y`, ou refuser avec `n` .
 
 </br>
+
+### En action :
+
+[ICI GIF MESSAGERIE]
 
 ## 4. 
 
