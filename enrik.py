@@ -9,7 +9,20 @@ VERBOSE = choix not in ("n", "no")
 HOST = "127.0.0.1"
 PORT = 5000
 
-print(f"\n=== [DÉMARRAGE DE L'EXPÉDITEUR : ENRIK] ===\n")
+BANNIERE = r"""
+    ______                            __           __
+   / ____/___  ____________  ______  / /____  ____/ /
+  / __/ / __ \/ ___/ ___/ / / / __ \/ __/ _ \/ __  / 
+ / /___/ / / / /__/ /  / /_/ / /_/ / /_/  __/ /_/ /  
+/_____/_/ /_/\___/_/   \__, / .___/\__/\___/\__,_/   
+   _________          /____/_/                       
+  / ____/ (_)__  ____  / /_                          
+ / /   / / / _ \/ __ \/ __/                          
+/ /___/ / /  __/ / / / /_                            
+\____/_/_/\___/_/ /_/\__/                                                                                                                                                                                                    
+"""
+
+print(BANNIERE)
 
 socket_reseau = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 socket_reseau.connect((HOST, PORT))

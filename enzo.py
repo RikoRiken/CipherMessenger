@@ -9,10 +9,22 @@ VERBOSE = choix not in ("n", "no")
 HOST = "127.0.0.1"
 PORT = 5000
 
-print(f"\n=== [DÉMARRAGE DU DESTINATAIRE : ENZO] ===")
+BANNIERE = r"""
+    ______                            __           __
+   / ____/___  ____________  ______  / /____  ____/ /
+  / __/ / __ \/ ___/ ___/ / / / __ \/ __/ _ \/ __  / 
+ / /___/ / / / /__/ /  / /_/ / /_/ / /_/  __/ /_/ /  
+/_______/ /_/\___/_/   \__, / .___/\__/\___/\__,_/   
+  / ___/___  ______   //////_/____                   
+  \__ \/ _ \/ ___/ | / / _ \/ ___/                   
+ ___/ /  __/ /   | |/ /  __/ /                       
+/____/\___/_/    |___/\___/_/                                                                                                                        
+"""
+
+print(BANNIERE)
 
 if VERBOSE:
-    print("\n[RSA] Génération des deux clés RSA (2048 bits)...")
+    print("[RSA] Génération des deux clés RSA (2048 bits)...")
 
 enzo_priv, enzo_pub = generer_paire_rsa()
 if VERBOSE:

@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ### Exécution :
 
-**Ouvrir 2 terminaux distincts :**
+**Ouvrir 2 terminaux distincts**
 
 1. **TERMINAL N°1 | Enzo (Serveur)**
 
@@ -74,7 +74,7 @@ python3 enrik.py
 
 ### En action :
 
-[ICI GIF MESSAGERIE]
+![til](./assets/messenger-demonstration.gif)
 
 ## 4. 
 
